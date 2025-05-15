@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@catppuccin/vitepress':
+        specifier: ^0.1.2
+        version: 0.1.2(typescript@5.8.2)
       '@giscus/vue':
         specifier: ^2.4.0
         version: 2.4.0(vue@3.5.13(typescript@5.8.2))
@@ -292,6 +295,11 @@ packages:
   '@babel/types@7.26.9':
     resolution: {integrity: sha512-Y3IR1cRnOxOCDvMmNiym7XpXQ93iGDDPHx+Zj+NM+rg0fBaShfQLkg+hKPaZCEvg5N/LeCo4+Rj/i3FuJsIQaw==}
     engines: {node: '>=6.9.0'}
+
+  '@catppuccin/vitepress@0.1.2':
+    resolution: {integrity: sha512-dqhgo6U6GWbgh3McAgwemUC8Y2Aj48rRcQx/9iuPzBPAgo7NA3yi7ZcR0wolAENMmoOMAHBV+rz/5DfiGxtZLA==}
+    peerDependencies:
+      typescript: ^5.0.0
 
   '@docsearch/css@3.8.2':
     resolution: {integrity: sha512-y05ayQFyUmCXze79+56v/4HpycYF3uFqB78pLPrSV5ZKAlDuIAAJNhaRi8tTdRNXh05yxX/TyNnzD6LwSM89vQ==}
@@ -2207,6 +2215,10 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  '@catppuccin/vitepress@0.1.2(typescript@5.8.2)':
+    dependencies:
+      typescript: 5.8.2
 
   '@docsearch/css@3.8.2': {}
 

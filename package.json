@@ -8,6 +8,7 @@
     "summary": "node --env-file-if-exists=.env ./scripts/summary.js"
   },
   "devDependencies": {
+    "@catppuccin/vitepress": "^0.1.2",
     "@giscus/vue": "^2.4.0",
     "@types/markdown-it-container": "^2.0.10",
     "@types/node": "^20.17.24",

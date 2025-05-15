@@ -44,17 +44,27 @@ const clazz = computed(() =>
     'text-sm',
 
     props.variant === 'brand' && [
-      'text-white',
-      'bg-brand-3',
-      'hover:bg-brand-2',
-      'active:bg-brand-1',
+      'text-button-brand-text',
+      'bg-button-brand-bg',
+      'border-button-brand-border',
+      'hover:text-button-brand-hover-text',
+      'hover:bg-button-brand-hover-bg',
+      'hover:border-button-brand-hover-border',
+      'active:text-button-brand-active-text',
+      'active:bg-button-brand-active-bg',
+      'active:border-button-brand-active-border',
     ],
 
     props.variant === 'alt' && [
-      'text-text-1',
-      'bg-default-3',
-      'hover:bg-default-2',
-      'active:bg-default-1',
+      'text-button-alt-text',
+      'bg-button-alt-bg',
+      'border-button-alt-border',
+      'hover:text-button-alt-hover-text',
+      'hover:bg-button-alt-hover-bg',
+      'hover:border-button-alt-hover-border',
+      'active:text-button-alt-active-text',
+      'active:bg-button-alt-active-bg',
+      'active:border-button-alt-active-border',
     ]
   )
 )

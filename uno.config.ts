@@ -12,6 +12,16 @@ function vpColors(names: string[]) {
   return colors
 }
 
+function vpButtonColors(variant: string) {
+  const colors: Record<string, string> = {}
+  for (const target of ['text', 'bg', 'border']) {
+    colors[`button-${variant}-${target}`] = `var(--vp-button-${variant}-${target})`
+    colors[`button-${variant}-hover-${target}`] = `var(--vp-button-${variant}-hover-${target})`
+    colors[`button-${variant}-active-${target}`] = `var(--vp-button-${variant}-active-${target})`
+  }
+  return colors
+}
+
 export default defineConfig({
   presets: [presetUno()],
   theme: {
@@ -55,6 +65,9 @@ export default defineConfig({
         ...withLevels('danger', [1, 2, 3, 'soft']),
         ...withLevels('caution', [1, 2, 3, 'soft']),
       ]),
+      // Colors: Buttons
+      ...vpButtonColors('brand'),
+      ...vpButtonColors('alt'),
     },
     fontFamily: {
       base: 'var(--vp-font-family-base)',

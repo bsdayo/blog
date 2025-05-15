@@ -6,6 +6,7 @@ import { GiscusProps } from '@giscus/vue'
 import UIButton from '@/components/ui/UIButton.vue'
 import UIInput from '@/components/ui/UIInput.vue'
 
+import '@catppuccin/vitepress/theme/mocha/mauve.css'
 import './custom.scss'
 import 'virtual:uno.css'
 

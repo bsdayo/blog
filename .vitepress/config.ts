@@ -15,8 +15,8 @@ export default defineConfigWithTheme<ThemeConfig>({
 
   markdown: {
     theme: {
-      light: 'github-light',
-      dark: 'one-dark-pro',
+      light: 'catppuccin-latte',
+      dark: 'catppuccin-mocha',
     },
 
     math: true,
