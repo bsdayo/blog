@@ -1,13 +1,12 @@
 import { defineConfig } from 'vitepress'
+import type { ThemeConfig } from './types'
 
-export default defineConfig({
-  // Site
+export default defineConfig<ThemeConfig>({
   title: "bsdayo's blog",
   description: "bsdayo's blog",
   lang: 'zh-CN',
   head: [['link', { rel: 'icon', href: '/favicon.png' }]],
 
-  // Markdown
   markdown: {
     theme: {
       light: 'catppuccin-latte',
@@ -16,8 +15,6 @@ export default defineConfig({
     math: true,
   },
 
-  // Build
-  srcDir: 'content',
   vite: {
     configFile: 'vite.config.ts',
   },

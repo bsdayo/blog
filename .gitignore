@@ -5,7 +5,7 @@ node_modules/
 .vitepress/dist/
 .vitepress/.temp/
 
-content/auto-imports.d.ts
+auto-imports.d.ts
 
 .env*
 
