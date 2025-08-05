@@ -1,0 +1,12 @@
+node_modules/
+
+# VitePress
+.vitepress/cache/
+.vitepress/dist/
+.vitepress/.temp/
+
+content/auto-imports.d.ts
+
+.env*
+
+.DS_Store

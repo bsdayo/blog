@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "~/*": [
+        "./*"
+      ],
+      "#components/*": [
+        "./theme/components/*"
+      ],
+    }
+  },
+  "include": [
+    "**/*",
+    ".vitepress/**/*",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
