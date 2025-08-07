@@ -1,20 +1,68 @@
 <template>
   <Header />
 
-  <div class="py-16 mx-auto px-4 max-w-[calc(65ch-16px)]">
-    <Content class="max-w-none prose dark:prose-invert prose-zinc" />
+  <div class="my-16 mx-auto px-4 max-w-[calc(65ch+16px)] typography">
+    <h1 v-if="post">{{ page.title }}</h1>
+    <div v-if="post" class="-mt-2 pb-2 opacity-50 flex gap-2 text-sm [&_*[class*=i-]]:mr-1">
+      <div v-if="post.created">
+        <span class="i-lucide-calendar" />{{ dayjs(post.created).format('YYYY-MM-DD') }}
+      </div>
+      <div v-if="post.tags.length > 0" class="flex gap-2">
+        ·
+        <a v-for="tag in post.tags" :key="tag" :href="withBase('/tags/' + tag)">
+          <span class="i-lucide-tag" />{{ tag }}
+        </a>
+      </div>
+    </div>
 
+    <Content class="content" />
+    <hr />
     <Footer />
   </div>
+
+  <BackToTopButton class="fixed bottom-8 right-8 opacity-0" />
 </template>
 
 <script lang="ts" setup>
-import Header from '~/components/Header.vue'
-import Footer from '~/components/Footer.vue'
+import mediumZoom from 'medium-zoom'
+import { withBase } from 'vitepress'
+import dayjs from 'dayjs'
+
+const { page } = useData()
+const post = usePost()
+
+watch(
+  () => page.value,
+  async () => {
+    if (!globalThis.window || !globalThis.document) return
+    await nextTick()
+
+    // Medium Zoom
+    mediumZoom('.content img', {
+      background: 'rgba(0, 0, 0, 0.5)',
+    })
+  },
+  { immediate: true }
+)
 </script>
 
 <style>
+body {
+  /* text-zinc-700 */
+  color: var(--colors-zinc-700) /* text-zinc-700 */;
+}
+
 .dark body {
+  color: var(--colors-zinc-200) /* text-zinc-200 */;
   background-color: var(--colors-zinc-900) /* bg-zinc-900 */;
+}
+
+.animejs-onscroll-debug {
+  z-index: 999 !important;
+}
+
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 999;
 }
 </style>

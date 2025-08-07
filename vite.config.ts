@@ -1,12 +1,17 @@
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import VueComponents from 'unplugin-vue-components/vite'
 
 export default defineConfig({
   plugins: [
     UnoCSS(),
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', '@vueuse/core', 'vitepress'],
+      dirs: ['composables/**'],
+    }),
+    VueComponents({
+      dirs: ['components/**'],
     }),
   ],
   resolve: {

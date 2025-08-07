@@ -6,6 +6,7 @@ node_modules/
 .vitepress/.temp/
 
 auto-imports.d.ts
+components.d.ts
 
 .env*
 

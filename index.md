@@ -2,53 +2,73 @@
 
 Hey, nice to see you here.
 
-This blog is in active development.
+This [blog]() is in `active development`.
 Stay tuned for more updates <span class="i-lucide-heart text-red" />
 
-Hey, nice to see you here.
-
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
-
-<div class="flex gap-4">
-<div class="size-16 bg-red rounded-full" />
-<div class="size-16 bg-amber rounded-full" />
-<div class="size-16 bg-green rounded-full" />
+<div class="flex gap-2">
+<div class="size-4 bg-red rounded-full" />
+<div class="size-4 bg-amber rounded-full" />
+<div class="size-4 bg-green rounded-full" />
 </div>
 
-![asd](https://picsum.photos/seed/picsum/536/354)
+[<span class="i-simple-icons-neteasecloudmusic" /> 对的对的](){class="text-red"}
 
-Hey, nice to see you here.
+![From wallheaven.cc](https://w.wallhaven.cc/full/je/wallhaven-je5r8y.png)
 
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
+![](https://w.wallhaven.cc/full/7j/wallhaven-7j3o9v.jpg)
 
-Hey, nice to see you here.
+![](https://w.wallhaven.cc/full/vq/wallhaven-vqwxd8.jpg)
 
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
+```ts
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+}
+```
 
-Hey, nice to see you here.
+::: info 提示
+This is a code block with a custom title.
+:::
 
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
+::: tip 提示
+This is a code block with a custom title.
+:::
 
-Hey, nice to see you here.
+::: warning 提示
+This is a code block with a custom title.
+:::
 
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
+::: danger 提示
+This is a code block with a custom title.
+:::
 
-Hey, nice to see you here.
+::: details 详情
+This is a code block with a custom title.
+:::
 
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
+::: code-group
 
-Hey, nice to see you here.
+```js [config.js]
+/**
+ * @type {import('vitepress').UserConfig}
+ */
+const config = {
+  // ...
+}
 
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
+export default config
+```
 
-Hey, nice to see you here.
+```ts [config.ts]
+import type { UserConfig } from 'vitepress'
 
-This blog is in active development.
-Stay tuned for more updates <span class="i-lucide-heart text-red" />
+const config: UserConfig = {
+  // ...
+}
+
+export default config
+```
+
+:::
