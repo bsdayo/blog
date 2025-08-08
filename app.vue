@@ -2,25 +2,9 @@
   <Header />
 
   <div class="my-16 mx-auto px-4 max-w-[calc(65ch+16px)] typography">
-    <h1 v-if="post">{{ page.title }}</h1>
-    <div v-if="post" class="-mt-2 pb-2 opacity-50 flex gap-2 text-sm [&_*[class*=i-]]:mr-1">
-      <div v-if="post.created">
-        <span class="i-lucide-calendar" />{{ dayjs(post.created).format('YYYY-MM-DD') }}
-      </div>
-      <div v-if="post.tags.length > 0" class="flex gap-2">
-        ·
-        <a v-for="tag in post.tags" :key="tag" :href="withBase('/tags/' + tag)">
-          <span class="i-lucide-tag" />{{ tag }}
-        </a>
-      </div>
-    </div>
-
-    <Content class="content" />
-
-    <div class="mt-8" v-if="post">
-      <Giscus :key="page.relativePath" v-bind="theme.giscus" :theme="isDark ? 'dark' : 'light'" />
-    </div>
-
+    <PostLayout v-if="inPost" />
+    <DefaultLayout v-else />
+    <hr />
     <Footer class="mt-8" />
   </div>
 
@@ -29,13 +13,12 @@
 
 <script lang="ts" setup>
 import mediumZoom from 'medium-zoom'
-import { withBase } from 'vitepress'
-import dayjs from 'dayjs'
-import Giscus from '@giscus/vue'
 import type { ThemeConfig } from '~/.vitepress/theme'
+import DefaultLayout from '~/layouts/DefaultLayout.vue'
+import PostLayout from '~/layouts/PostLayout.vue'
 
-const { page, frontmatter, theme, isDark } = useData<ThemeConfig>()
-const post = usePost()
+const { page } = useData<ThemeConfig>()
+const inPost = computed(() => /^posts\/(.*)\/.*$/m.test(page.value.relativePath))
 
 watch(
   () => page.value,

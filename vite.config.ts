@@ -8,7 +8,7 @@ export default defineConfig({
     UnoCSS(),
     AutoImport({
       imports: ['vue', '@vueuse/core', 'vitepress'],
-      dirs: ['composables/**'],
+      dirs: ['composables/**', 'utils/**'],
     }),
     VueComponents({
       dirs: ['components/**'],

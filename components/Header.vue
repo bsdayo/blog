@@ -18,7 +18,9 @@
 
       <div class="relative flex justify-end items-center">
         <div class="header-heading absolute left-0 w-full opacity-0">
-          <div v-if="post" class="text-caption text-xs mb-px">{{ post.slug }}</div>
+          <div v-if="frontmatter?.category" class="text-caption text-xs mb-px">
+            {{ getCategoryName(frontmatter.category) }}
+          </div>
           <div class="font-semibold">{{ page.title }}</div>
         </div>
 
@@ -44,9 +46,9 @@
 <script setup lang="ts">
 import { animate, createSpring } from 'animejs'
 import { withBase } from 'vitepress'
+import { getCategoryName } from '~/utils/names'
 
-const { page, isDark } = useData()
-const post = usePost()
+const { page, frontmatter, isDark } = useData()
 
 onMounted(() => {
   onTitleScrolled({

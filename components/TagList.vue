@@ -1,10 +1,13 @@
 <template>
-  <div class="space-x-4">
-    <a v-for="[tag, count] in tags" :href="withBase(`/tags/${tag}`)">
-      {{ tag }}
-      <span class="text-xs">{{ count }}</span>
-    </a>
-  </div>
+  <p class="space-x-3">
+    <span class="i-lucide-tags" />
+    <span class="inline-block" v-for="[tag, count] in tags">
+      <a :href="withBase(`/tags/${tag}`)" class="">
+        {{ tag }}
+        <span class="text-xs">{{ count }}</span>
+      </a>
+    </span>
+  </p>
 </template>
 
 <script lang="ts" setup>

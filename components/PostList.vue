@@ -1,13 +1,9 @@
 <template>
-  <div class="space-y-16">
-    <div v-for="year in years" class="relative space-y-4 pt-14">
-      <div
-        class="absolute -z-1 top-0 opacity-10 font-black pointer-events-none text-24 line-height-24"
-      >
-        {{ year }}
-      </div>
-      <PostLink class="ml-8" v-for="post in grouped[year]" :key="post.slug" :post="post" />
-    </div>
+  <div v-for="year in years">
+    <h2>{{ year }}</h2>
+    <ul>
+      <PostLink v-for="post in grouped[year]" :key="post.slug" :post="post" />
+    </ul>
   </div>
 </template>
 

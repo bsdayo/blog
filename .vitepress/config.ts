@@ -9,6 +9,7 @@ export default defineConfig<ThemeConfig>({
   lang: 'zh-CN',
   head: [['link', { rel: 'icon', href: '/favicon.png' }]],
   ignoreDeadLinks: 'localhostLinks',
+  cleanUrls: true,
 
   markdown: {
     theme: {
