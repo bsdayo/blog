@@ -5,8 +5,8 @@
     "dev": "vitepress --host",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "new": "node ./scripts/new.js",
-    "summary": "node --env-file-if-exists=.env ./scripts/summary.js"
+    "new": "ts-node ./scripts/new.ts",
+    "summary": "ts-node --env-file-if-exists=.env ./scripts/summary.js"
   },
   "devDependencies": {
     "@giscus/vue": "^3.1.1",
@@ -30,6 +30,7 @@
     "medium-zoom": "^1.1.0",
     "openai": "^5.11.0",
     "reka-ui": "^2.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "unocss": "^66.4.1",
     "unplugin-auto-import": "^20.0.0",
