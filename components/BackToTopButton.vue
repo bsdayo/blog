@@ -27,8 +27,7 @@ onMounted(() => {
   onTitleScrolled({
     onEnter() {
       animate('.back-to-top', {
-        opacity: 0,
-        translateY: 16,
+        translateY: 80,
         pointerEvents: 'none',
         duration: 200,
       })
@@ -36,12 +35,8 @@ onMounted(() => {
     onLeave() {
       animate('.back-to-top', {
         translateY: 0,
-        ease: createSpring(),
-      })
-      animate('.back-to-top', {
-        opacity: 1,
         pointerEvents: 'auto',
-        duration: 200,
+        ease: createSpring(),
       })
     },
   })

@@ -6,7 +6,7 @@
       >
         {{ year }}
       </div>
-      <PostLink class="ml-8" v-for="post in grouped[year]" :key="post.url" :post="post" />
+      <PostLink class="ml-8" v-for="post in grouped[year]" :key="post.slug" :post="post" />
     </div>
   </div>
 </template>

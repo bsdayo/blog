@@ -8,6 +8,7 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 import type { Preset, PresetWind4Theme } from 'unocss'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import clsx from 'clsx'
 
 export default defineConfig<PresetWind4Theme>({
@@ -38,6 +39,9 @@ export default defineConfig<PresetWind4Theme>({
       extraProperties: {
         display: 'inline-block',
         'vertical-align': 'text-bottom',
+      },
+      collections: {
+        custom: FileSystemIconLoader('./assets/icons'),
       },
     }),
   ],
@@ -87,6 +91,7 @@ export default defineConfig<PresetWind4Theme>({
       '[&_a.header-anchor]:prose-h1:hidden',
       'prose-a:text-link hover:prose-a:border-current',
       'before:[&_:not(pre)>code]:hidden after:[&_:not(pre)>code]:hidden [&_:not(pre)>code]:(bg-zinc-500/10 px-6px py-3px rounded)',
+      '[&_li>ul]:m-0',
       // Images
       'prose-figure:(w-full flex flex-col items-center) prose-figcaption:(text-center mt-2)',
       // Code blocks

@@ -1,0 +1,78 @@
+# 关于
+
+你好呀，我是 `bsdayo`。
+
+## 技术
+
+`++` 为精通，`+` 为熟练；**加粗**为常用，~~删除~~为遗忘；括号内为接触时间。
+
+_只写了想得起来的_
+
+**语言**
+
+- **C# (2022.6) ++**
+- ~~F# (2022.?)~~
+- ~~Java (2020.?)~~
+- Python 3 (2019.?) +
+- **HTML (2016.?) ++**
+- **CSS (2016.?) ++**
+- ~~SCSS (2021.9)~~
+- JavaScript (2021.?) +
+- **TypeScript (2022.5) +**
+- ~~C (2015.?)~~
+- Rust (2023.9)
+- **Markdown (2021.3) ++**
+- SQL (2023.1)
+- ...
+
+**框架**
+
+- **ASP.NET Core (2023.1) +**
+- Entity Framework Core (2023.1) +
+- **Vue 3 (2021.9) +**
+- Nuxt (2025.7) +
+- ~~WPF (2022.12)~~
+- ...
+
+**其他**
+
+- **Linux (2021.1) +**
+- **Git (2021.3) +**
+- Docker (2023.5)
+- ...
+
+## 设备
+
+**桌面**
+
+- <span class="i-simple-icons-apple" /> Mac Mini M4 <sup>工作</sup>
+- <span class="i-simple-icons-windows" /> 机械革命 旷世 16 Pro <sup>娱乐</sup>
+- <span class="i-simple-icons-xiaomi" /> ~~小米平板 2~~（已损坏）
+
+**移动**
+
+- <span class="i-simple-icons-xiaomi" /> Redmi Note 12 Turbo
+- <span class="i-simple-icons-xiaomi" /> ~~小米平板 6 标准版~~（已出手）
+
+**显示**
+
+- <span class="i-lucide-monitor" /> KTC H27T22S <sup>27″ 1440p 170Hz</sup>
+- <span class="i-lucide-laptop-minimal" /> 闲鱼便携屏 TL140ADXP0 <sup>14″ 1600p 155Hz</sup>
+
+**控制**
+
+- <span class="i-simple-icons-logitech" /> Logitech G502X <sup>无线</sup>
+- <span class="i-simple-icons-logitech" /> Logitech K380
+- <span class="i-lucide-keyboard" /> 狼蛛 F75
+- <span class="i-simple-icons-xbox" /> Xbox Series 无线控制器
+- <span class="i-simple-icons-playstation" /> ~~DualSense 无线控制器~~（已出手）
+
+**音频**
+
+- <span class="i-custom-moondrop" /> 水月雨 竹 2
+- <span class="i-custom-moondrop" /> 水月雨 太空漫游
+- <span class="i-lucide-headphones" /> QCY H3
+
+**游戏**
+
+- <span class="i-simple-icons-steamdeck" /> Steam Deck OLED

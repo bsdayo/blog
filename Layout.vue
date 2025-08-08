@@ -16,19 +16,25 @@
     </div>
 
     <Content class="content" />
-    <hr />
-    <Footer />
+
+    <div class="mt-8" v-if="post">
+      <Giscus :key="page.relativePath" v-bind="theme.giscus" :theme="isDark ? 'dark' : 'light'" />
+    </div>
+
+    <Footer class="mt-8" />
   </div>
 
-  <BackToTopButton class="fixed bottom-8 right-8 opacity-0" />
+  <BackToTopButton class="fixed bottom-8 right-8" />
 </template>
 
 <script lang="ts" setup>
 import mediumZoom from 'medium-zoom'
 import { withBase } from 'vitepress'
 import dayjs from 'dayjs'
+import Giscus from '@giscus/vue'
+import type { ThemeConfig } from '~/.vitepress/theme'
 
-const { page } = useData()
+const { page, frontmatter, theme, isDark } = useData<ThemeConfig>()
 const post = usePost()
 
 watch(

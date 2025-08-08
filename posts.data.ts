@@ -11,13 +11,15 @@ export interface Post {
 declare const data: Post[]
 export { data }
 
-export default createContentLoader<Post[]>('posts/*/*.md', {
+export default createContentLoader<Post[]>('posts/**/index.md', {
   includeSrc: true,
   transform(data) {
     return data
+      .filter((d) => d.url !== '/posts/')
       .map((d) => {
+        const urlParts = d.url.split('/')
         return {
-          slug: d.url.split('/')[2],
+          slug: urlParts[urlParts.length - 2],
           title: d.frontmatter.title || d.url,
           frontmatter: d.frontmatter,
           tags: d.frontmatter.tags || [],
