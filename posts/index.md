@@ -1,7 +1,5 @@
 # 文章
 
-{{data}}
-
 <TagList :posts="data" />
 
 ---
