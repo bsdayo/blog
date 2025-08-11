@@ -11,3 +11,5 @@ components.d.ts
 .env*
 
 .DS_Store
+
+assets-cloud/

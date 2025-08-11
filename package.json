@@ -6,7 +6,8 @@
     "build": "vitepress build",
     "preview": "vitepress preview",
     "new": "ts-node ./scripts/new.ts",
-    "summary": "ts-node --env-file-if-exists=.env ./scripts/summary.js"
+    "summary": "ts-node --env-file-if-exists=.env ./scripts/summary.js",
+    "mount": "rclone nfsmount --vfs-cache-mode full r2:assets assets-cloud"
   },
   "devDependencies": {
     "@giscus/vue": "^3.1.1",
