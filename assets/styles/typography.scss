@@ -1,0 +1,161 @@
+.prose {
+  .header-anchor {
+    @apply absolute -left-1em border-none opacity-0 transition-opacity font-normal before:content-["#"];
+  }
+  h2:hover .header-anchor,
+  h3:hover .header-anchor,
+  h4:hover .header-anchor,
+  h5:hover .header-anchor,
+  h6:hover .header-anchor {
+    @apply opacity-80;
+  }
+
+  a {
+    @apply text-link hover:border-current;
+  }
+
+  :not(pre) > code {
+    @apply before:hidden after:hidden bg-zinc-500/10 px-6px py-3px rounded;
+  }
+
+  li > ul {
+    @apply m-0;
+  }
+
+  figure {
+    @apply w-full flex flex-col items-center;
+
+    figcaption {
+      @apply text-center mt-2;
+    }
+  }
+
+  div[class*='language-'] {
+    @apply relative;
+
+    button.copy {
+      @apply absolute top-4 right-4 size-4 i-lucide-copy opacity-0 transition-opacity cursor-pointer;
+    }
+
+    span.lang {
+      @apply absolute top-4 right-4 opacity-50 text-xs transition-opacity pointer-events-none;
+    }
+
+    &:hover button.copy {
+      @apply opacity-100;
+    }
+    &:hover span.lang {
+      @apply opacity-0;
+    }
+
+    &.line-numbers-mode {
+      @apply pl-8;
+    }
+
+    .line-numbers-wrapper {
+      @apply absolute top-0 left-0 font-mono pt-1.25rem text-0.875em line-height-[2] w-8 text-center text-zinc-500 pointer-events-none;
+    }
+  }
+
+  pre {
+    @apply rounded-lg;
+
+    &.shiki {
+      @apply shiki-light dark:shiki-dark;
+
+      > code {
+        @apply line-height-[2] block;
+      }
+
+      span {
+        @apply shiki-light dark:shiki-dark;
+
+        &.line {
+          @apply inline-block -mx-1.5rem px-1.5rem w-[calc(100%+4*1.5rem)];
+
+          &.highlighted,
+          &.diff {
+            --shiki-light-bg: transparent;
+            --shiki-dark-bg: transparent;
+          }
+
+          &.highlighted {
+            @apply bg-zinc-500/10 dark:bg-zinc-500/20;
+          }
+
+          &.diff {
+            @apply relative before:left-10px before:absolute;
+            &.add {
+              @apply before:content-["+"] before:text-green-600/70 dark:before:text-green-400/70 bg-green-500/10 dark:bg-green-500/20;
+            }
+            &.remove {
+              @apply before:content-["-"] before:text-red-600/70 dark:before:text-red-400/70 bg-red-500/10 dark:bg-red-500/20 opacity-70;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .vp-code-group {
+    @apply rounded-lg bg-zinc-500/10 my-1rem;
+
+    .tabs {
+      @apply h-12 flex px-2 gap-4 text-0.875rem;
+    }
+
+    input {
+      @apply hidden;
+
+      + label {
+        @apply border-b-2px border-transparent transition-colors inline-block line-height-12 px-2 cursor-pointer;
+      }
+      &:checked + label {
+        @apply border-zinc-500;
+      }
+
+      div[class*='language-']:not(.active) {
+        @apply hidden;
+      }
+    }
+
+    pre {
+      @apply m-0;
+    }
+  }
+
+  .custom-block {
+    @apply my-1rem rounded-lg px-1rem pt-1rem pb-0.5rem text-0.875em border-px;
+
+    > .custom-block-title {
+      @apply mt-0 font-semibold;
+    }
+
+    > p {
+      @apply my-0.5em;
+    }
+
+    &.info,
+    &.note,
+    &.details {
+      @apply bg-zinc-500/10 border-zinc-500;
+    }
+    &.tip {
+      @apply bg-blue-500/10 border-blue-500;
+    }
+    &.warning {
+      @apply bg-amber-500/10 border-amber-500;
+    }
+    &.danger,
+    &.caution {
+      @apply bg-red-500/10 border-red-500;
+    }
+    &.important {
+      @apply bg-purple-500/10 border-purple-500;
+    }
+  }
+
+  details > summary {
+    @apply mb-0.5em font-semibold marker:text-zinc-500;
+  }
+}

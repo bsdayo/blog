@@ -1,7 +1,7 @@
 <template>
   <Header />
 
-  <div class="my-16 mx-auto px-4 max-w-[calc(65ch+16px)] typography">
+  <div class="my-16 mx-auto px-4 max-w-[calc(65ch+16px)] prose dark:prose-invert prose-zinc">
     <PostLayout v-if="inPost" />
     <DefaultLayout v-else />
     <hr />
@@ -16,6 +16,8 @@ import mediumZoom from 'medium-zoom'
 import type { ThemeConfig } from '~/.vitepress/theme'
 import DefaultLayout from '~/layouts/DefaultLayout.vue'
 import PostLayout from '~/layouts/PostLayout.vue'
+
+import '~/assets/styles/typography.scss'
 
 const { page } = useData<ThemeConfig>()
 const inPost = computed(() => /^posts\/(.*)\/.*$/m.test(page.value.relativePath))
@@ -35,15 +37,13 @@ watch(
 )
 </script>
 
-<style>
+<style lang="scss">
 body {
-  /* text-zinc-700 */
-  color: var(--colors-zinc-700) /* text-zinc-700 */;
-}
+  @apply text-zinc-700;
 
-.dark body {
-  color: var(--colors-zinc-200) /* text-zinc-200 */;
-  background-color: var(--colors-zinc-900) /* bg-zinc-900 */;
+  .dark & {
+    @apply text-zinc-200 bg-zinc-900;
+  }
 }
 
 .animejs-onscroll-debug {

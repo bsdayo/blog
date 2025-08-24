@@ -21,7 +21,7 @@
           <div v-if="frontmatter?.category" class="text-caption text-xs mb-px">
             {{ getCategoryName(frontmatter.category) }}
           </div>
-          <div class="font-semibold">{{ page.title }}</div>
+          <div class="font-semibold text-nowrap text-ellipsis overflow-hidden">{{ page.title }}</div>
         </div>
 
         <div class="header-buttons space-x-6 *:hoverable [&>a[data-active=true]]:opacity-100">
