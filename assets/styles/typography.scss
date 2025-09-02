@@ -53,44 +53,41 @@
     }
 
     .line-numbers-wrapper {
-      @apply absolute top-0 left-0 font-mono pt-1.25rem text-0.875em line-height-[2] w-8 text-center text-zinc-500 pointer-events-none;
+      @apply absolute top-0 left-0 w-8 h-full flex flex-col justify-center text-center pointer-events-none;
+      @apply font-mono text-0.875em line-height-[1.8] text-zinc-500;
     }
   }
 
-  pre {
-    @apply rounded-lg;
+  pre.shiki {
+    @apply shiki-light dark:shiki-dark rounded-none -mx-6 sm:rounded-lg sm:mx-0 px-6 sm:px-1.5em py-1em;
 
-    &.shiki {
+    > code {
+      @apply block w-fit line-height-[1.8];
+    }
+
+    span {
       @apply shiki-light dark:shiki-dark;
 
-      > code {
-        @apply line-height-[2] block;
-      }
+      &.line {
+        @apply inline-block w-full px-1em -mx-1em box-content;
 
-      span {
-        @apply shiki-light dark:shiki-dark;
+        &.highlighted,
+        &.diff {
+          --shiki-light-bg: transparent;
+          --shiki-dark-bg: transparent;
+        }
 
-        &.line {
-          @apply inline-block -mx-1.5rem px-1.5rem w-[calc(100%+4*1.5rem)];
+        &.highlighted {
+          @apply bg-zinc-500/10 dark:bg-zinc-500/20;
+        }
 
-          &.highlighted,
-          &.diff {
-            --shiki-light-bg: transparent;
-            --shiki-dark-bg: transparent;
+        &.diff {
+          @apply relative before:left-10px before:absolute;
+          &.add {
+            @apply before:content-["+"] before:text-green-600/70 dark:before:text-green-400/70 bg-green-500/10 dark:bg-green-500/20;
           }
-
-          &.highlighted {
-            @apply bg-zinc-500/10 dark:bg-zinc-500/20;
-          }
-
-          &.diff {
-            @apply relative before:left-10px before:absolute;
-            &.add {
-              @apply before:content-["+"] before:text-green-600/70 dark:before:text-green-400/70 bg-green-500/10 dark:bg-green-500/20;
-            }
-            &.remove {
-              @apply before:content-["-"] before:text-red-600/70 dark:before:text-red-400/70 bg-red-500/10 dark:bg-red-500/20 opacity-70;
-            }
+          &.remove {
+            @apply before:content-["-"] before:text-red-600/70 dark:before:text-red-400/70 bg-red-500/10 dark:bg-red-500/20 opacity-70;
           }
         }
       }
