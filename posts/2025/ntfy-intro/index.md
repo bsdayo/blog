@@ -5,6 +5,8 @@ category: tutorial
 created: 2025-08-25 20:49:12 +08:00
 ---
 
+[[toc]]
+
 随着自建服务的增多，“如何高效率地发布/接收消息通知与异常警报”成为了一个较为优先的议题。
 一些服务（例如 [Proxmox](https://pve.proxmox.com/pve-docs/chapter-notifications.html)、[TrueNAS](https://www.truenas.com/docs/scale/scaleuireference/toptoolbar/alerts/alertsettingsscreen/)、[Grafana](https://grafana.com/docs/grafana/latest/alerting/)）都在内部集成了一些常用的通知方式，大致可分为以下三类：
 

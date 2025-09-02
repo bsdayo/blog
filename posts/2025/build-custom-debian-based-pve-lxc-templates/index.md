@@ -5,6 +5,8 @@ category: tutorial
 created: 2025-08-29 16:20:35 +08:00
 ---
 
+[[toc]]
+
 最近 [Debian 13 (`trixie`) 正式发布了](https://www.debian.org/News/2025/20250809)，Proxmox VE 紧随其后也[发布了基于 Debain 13 的 9.0 版本](https://www.proxmox.com/en/about/company-details/press-releases/proxmox-virtual-environment-9-0)。但官方仓库中的 Debian LXC 模板却迟迟没有更新，还停留在 Debian 12。
 
 试了一下 [linuxcontainers.org 的镜像](https://images.linuxcontainers.org/)，发现[在创建容器的配置网络阶段会报错](https://forum.proxmox.com/threads/debian-13-lxc-template.169469/#post-790580)。另一方面正好最近在折腾性能监控一类的事情，需要在系统镜像中预装一个 [node_exporter](https://github.com/prometheus/node_exporter/)，于是打算自己动手丰衣足食（
