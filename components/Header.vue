@@ -29,7 +29,7 @@
             <span class="sm:hidden i-lucide-newspaper" />
             <span class="hidden sm:inline">文章</span>
           </a>
-          <a href="https://memos.bsdayo.moe/u/bsdayo" target="_blank">
+          <a href="https://memos.bsdayo.moe" target="_blank">
             <span class="sm:hidden i-lucide-notebook" />
             <span class="hidden sm:inline">速记</span>
           </a>
