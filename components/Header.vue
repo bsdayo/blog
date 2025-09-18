@@ -29,6 +29,10 @@
             <span class="sm:hidden i-lucide-newspaper" />
             <span class="hidden sm:inline">文章</span>
           </a>
+          <a href="https://memos.bsdayo.moe" target="_blank">
+            <span class="sm:hidden i-lucide-notebook" />
+            <span class="hidden sm:inline">速记</span>
+          </a>
           <a :href="withBase('/about/')" :data-active="page.relativePath.startsWith('about/')">
             <span class="sm:hidden i-lucide-info" />
             <span class="hidden sm:inline">关于</span>
