@@ -1,7 +1,9 @@
 <template>
   <Header />
 
-  <div class="my-16 mx-auto px-6 max-w-[calc(65ch+16px)] prose dark:prose-invert prose-zinc">
+  <div
+    class="my-16 mx-auto px-6 sm:px-0 prose dark:prose-invert prose-zinc"
+  >
     <PostLayout v-if="inPost" />
     <DefaultLayout v-else />
     <hr />
