@@ -4,7 +4,6 @@ export interface Post {
   slug: string
   title: string
   frontmatter: Record<string, any>
-  note: boolean
   tags: string[]
   category?: string
   created: number
@@ -14,7 +13,6 @@ declare const data: Post[]
 export { data }
 
 export default createContentLoader<Post[]>('posts/**/index.md', {
-  includeSrc: true,
   transform(data) {
     return data
       .filter((d) => d.url !== '/posts/')
@@ -24,7 +22,6 @@ export default createContentLoader<Post[]>('posts/**/index.md', {
           slug: urlParts[urlParts.length - 2],
           title: d.frontmatter.title || d.url,
           frontmatter: d.frontmatter,
-          note: !!d.frontmatter.note,
           tags: d.frontmatter.tags || [],
           category: d.frontmatter.category,
           created: d.frontmatter.created ? Date.parse(d.frontmatter.created) : Date.now(),

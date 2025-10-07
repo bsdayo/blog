@@ -9,7 +9,6 @@ import {
 } from 'unocss'
 import type { Preset, PresetWind4Theme } from 'unocss'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
-import clsx from 'clsx'
 
 export default defineConfig<PresetWind4Theme>({
   presets: [
