@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import dayjs from 'dayjs'
+
+interface Props {
+  post: CollectionEntry<'posts'>
+}
+
+const { id, data } = Astro.props.post
+const created = dayjs(data.created).format('MM-DD')
+---
+
+<li>
+  <a href={`/posts/${id}`}>{data.title}</a>
+  <span class="ml-3 text-muted-foreground text-sm">{created}</span>
+</li>

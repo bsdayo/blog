@@ -1,0 +1,116 @@
+---
+slug: ntfy-intro
+title: ntfy.sh：极简易用的通知服务
+tags: []
+category: tutorial
+created: 2025-08-25 20:49:12 +08:00
+---
+
+import ImageFigure from '@/components/common/ImageFigure.astro'
+import CodeBlock from '@/components/common/CodeBlock.astro'
+import exampleSh from './example.sh?raw'
+import examplePy from './example.py?raw'
+
+随着自建服务的增多，“如何高效率地发布/接收消息通知与异常警报”成为了一个较为优先的议题。
+一些服务（例如 [Proxmox](https://pve.proxmox.com/pve-docs/chapter-notifications.html)、[TrueNAS](https://www.truenas.com/docs/scale/scaleuireference/toptoolbar/alerts/alertsettingsscreen/)、[Grafana](https://grafana.com/docs/grafana/latest/alerting/)）都在内部集成了一些常用的通知方式，大致可分为以下三类：
+
+- **邮件通知**：使用 `sendmail` 或通过 SMTP/IMAP 方式登录邮箱，向指定邮箱发送通知邮件
+- **外部平台**：使用例如 Discord、Telegram、Slack 等平台的凭据，直接在对应平台发送通知信息
+- **Webhook**：向指定的远程端点发送带有通知信息的请求
+
+对于自己的小型局域网，前两种方式略有不便：邮件通知需要单独准备一个邮箱；受支持的外部平台大多为国外平台，国内网络在不使用额外网络工具的前提下连接较为困难。只剩下 Webhook，给予了最大的灵活性，但仍需要一个用于接收通知的端点。
+
+于是在寻找之后，我发现了 [ntfy.sh](https://ntfy.sh/)，并一眼相中：
+
+- **纯粹**：频道、发布、订阅的经典模型
+- **简单**：通过简单的 HTTP 请求即可发布或订阅消息，无需任何 SDK 或 CLI
+- **便捷**：拥有手机 App，可随时在移动设备上接收并查看通知
+- **灵活**：公开服务即可满足绝大多数需求，也可选择自建
+
+官方的[文档](https://docs.ntfy.sh/)非常详尽，这里概括一些基本的用法，和自己的一些 use cases。
+
+由于 ntfy 的操作基于 HTTP 请求，本文余下部分直接使用 `curl` 作为示范。
+
+## 发布消息
+
+向 `its-my-topic` 频道发送一条消息：
+
+```shell
+curl -d "BanG" ntfy.sh/its-my-topic
+```
+
+带个标题：
+
+```shell
+curl -H "Title: Ave" -d "Mujica" ntfy.sh/its-my-topic
+```
+
+## 接收消息
+
+可以用请求 `ntfy.sh/<topic>/json` 来订阅，返回一个 JSON 流。
+
+```shell
+curl ntfy.sh/its-my-topic/json
+```
+
+返回：
+
+```jsonc
+{"id":"1DcwYiYPTZWL","time":1756129937,"event":"open","topic":"its-my-topic"}
+{"id":"ZoRb0eHv6woC","time":1756129940,"expires":1756173140,"event":"message","topic":"its-my-topic","message":"BanG"}
+{"id":"XHU257gJARCn","time":1756129942,"expires":1756173142,"event":"message","topic":"its-my-topic","title":"Ave","message":"Mujica"}
+```
+
+也可以换成 `ntfy.sh/<topic>/raw`，只返回纯文本流。
+
+```shell
+curl ntfy.sh/its-my-topic/raw
+```
+
+```text
+
+BanG
+Mujica
+```
+
+在安卓设备上，可以安装 [ntfy App](https://play.google.com/store/apps/details?id=io.heckel.ntfy)：
+
+<ImageFigure src="https://images.bsdayo.moe/ntfy-intro/ntfy-android-subscribe.jpg" inferSize>点击右下角加号</ImageFigure>
+
+Instant delivery 模式会启动一个前台服务（在通知栏创建一条永久通知），可以保证在锁屏等情况下仍然能及时接收到信息。这个通知可以在 ntfy 的应用设置里关掉 Subscription Service 的通知来隐藏，不影响功能。
+
+<ImageFigure src="https://images.bsdayo.moe/ntfy-intro/ntfy-android-received.jpg" inferSize>接收到频道内的通知</ImageFigure>
+
+## 隐私保护
+
+ntfy.sh 上的频道完全公开。如果你使用了一些十分常见的频道名（例如 `mytopic`、`test` 等等），你可能会接收到其他人发布的一些通知。这同时意味着，**你在频道内发布的任何通知都可以被任何人看到**。
+
+我们可以生成一个 UUID，或任何无法被猜到的字符串作为频道名。由于发布和订阅都需要频道名，必须知道这个字符串才能进入这个频道，起到一个密码的作用。
+
+如果你觉得仍然不放心，也可以选择[自建 ntfy 服务端](https://docs.ntfy.sh/install/)，并对频道[设置访问权限](https://docs.ntfy.sh/config/#access-control)。
+
+## 一些用例
+
+### 脚本
+
+由于只需要发送 HTTP 请求即可发布通知，ntfy 很适合被用在自动化脚本中：
+
+<CodeBlock code={exampleSh} lang="shell" />
+
+另一个 Python 的例子：
+
+<CodeBlock code={examplePy} lang="python" />
+
+### Proxmox VE
+
+在 Datacenter 的 Notification 配置界面，新增 Webhook 类型的通知目标。
+
+- Method: POST
+- URL: `https://ntfy.sh/<topic>`
+- Headers:
+  - Title: `{{ title }}`
+- Body: `{{ message }}`
+
+<ImageFigure src="https://images.bsdayo.moe/ntfy-intro/pve-add-webhook.png" inferSize>设置内容</ImageFigure>
+
+同时在下面的 Notification Matcher 处新增一个 Matcher，将特定或全部类型的通知定向到 ntfy。

@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import dayjs from 'dayjs'
+import PostLink from './PostLink.astro'
+
+interface Props {
+  posts: CollectionEntry<'posts'>[]
+}
+
+const set = new Set<number>()
+const grouped = Astro.props.posts.reduce(
+  (acc, post) => {
+    const year = dayjs(post.data.created).year()
+    set.add(year)
+    acc[year] ??= []
+    acc[year].push(post)
+    return acc
+  },
+  {} as Record<number, CollectionEntry<'posts'>[]>,
+)
+const years = Array.from(set).sort((a, b) => b - a)
+---
+
+{
+  years.map((year) => (
+    <>
+      <h2>{year}</h2>
+      <ul>
+        {grouped[year].map((post) => (
+          <PostLink {post} />
+        ))}
+      </ul>
+    </>
+  ))
+}

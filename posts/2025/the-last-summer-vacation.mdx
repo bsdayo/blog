@@ -1,0 +1,67 @@
+---
+slug: the-last-summer-vacation
+title: 大学阶段的最后一个暑假
+tags: []
+category: lookback
+created: 2025-09-08 13:35:16 +08:00
+---
+
+import Block from '@/components/common/Block.astro'
+import ImageFigure from '@/components/common/ImageFigure.astro'
+import { Icon } from 'astro-icon/components'
+
+> もうじき夏が終わるから
+
+转眼间大学生活就要走到尾声了。开学后就要在找实习、折腾毕业要求之间辗转。顺利的话，明年的这个时候应该已经成为一名光荣的社畜了罢（
+
+在家过完了最后一个暑假，也是最后一个长达两个月、没有负担的长假。两个月折腾了挺多东西的，记录一下。
+
+## Blog
+
+<Block>
+  <div slot="title">此部分已过时。</div>
+  
+  很显然，我的折腾是停不下来的。十月份我又将 Blog 使用 [Astro](https://astro.build) 重写了。
+</Block>
+
+你现在看到的其实是暑假期间做的第二版 Blog。[第一版](https://github.com/bsdayo/burogu)使用 [NuxtJS](https://nuxt.com) 作为前端，配合 [PocketBase](https://pocketbase.io) 作为后端，同时使用 [Tiptap](https://tiptap.dev) 实现所见即所得（WYSIWYG）的在线文章编辑。当时的大部分功能其实都已经实现完了，例如文章的编辑与查看，以及评论系统。但做着做着还是逐渐感觉到一些问题：
+
+- 其实我根本不需要所见即所得功能（我又不是不会写 Markdown.jpg）。而且实现一些常见的 Markdown 扩展功能，需要写复杂的编辑器插件，涉及到 ProseMirror 等一系列复杂设施。作为我个人使用的文章写作平台，我最终认为所见即所得带来的一些舒适度远不及维护它的复杂度。
+- 相较于先前（以及现在）的纯 SSG Blog，全栈的部署方式还是麻烦了一些。NuxtJS 尚且可以使用 Vercel 等托管平台（但实际体验下来部署在 Vercel 上即使开着代理访问也非常慢），PocketBase 这种 Go 程序就只能部署在自己的服务器上了。而 SSG 只需要 GitHub Actions + GitHub Pages 一条龙，必要时还可以直接拷贝到任意的 Web 服务器上，方便太多。
+- 自建的评论系统仍然需要实现回复提醒等杂项功能。未必难实现，只是有点没必要自己从头造轮子。计划中的登录方式也只有 GitHub 这一种，还不如和以前一样直接用基于 GitHub Discussions 的 [Giscus](https://giscus.app)。
+
+只是自己一个人使用的静态网站而已，造太多轮子只会徒增维护难度，最终弃坑。
+
+Keep it simple, stupid.
+
+于是我又用回了 VitePress + 自定义主题，也就是你现在看到的。果然历史是一个圈.jpg
+
+部分设计上参考了 [Anthony Fu (antfu)](https://antfu.me) 和 [Innei](https://innei.in) 两位大佬的博客。截至目前仍然有一些次要功能未实现，例如文章目录。复杂的文章我更倾向放一个 [`[[toc]]`](https://vitepress.dev/guide/markdown#table-of-contents) 在开头。
+
+一个比较有趣的实现是从[这篇文章](https://www.joshwcomeau.com/css/backdrop-filter/)学来的毛玻璃效果，我将它应用到了本站顶部的导航栏和右下角的返回顶部按钮上。可以滑过下面这张图片看看效果：
+
+<ImageFigure src="https://images.bsdayo.moe/the-last-summer-vacation/demo-background.jpg" inferSize>
+  [Photo by Francisco T Santos on Unsplash](https://unsplash.com/photos/a-mountain-range-with-snow-covered-mountains-in-the-background-QPkAC69dpwY)
+</ImageFigure>
+
+本站开源：[<Icon name="simple-icons:github" /> bsdayo/blog](https://github.com/bsdayo/blog)
+
+## Homelab
+
+暑假的后半段都在折腾和完善我的 All in One 服务器。正好赶上 [<Icon name="simple-icons:debian" /> Debian 13 的发布](https://www.debian.org/News/2025/20250809)，找了一天把 [<Icon name="simple-icons:proxmox" /> Proxmox VE](https://www.proxmox.com/en/products/proxmox-virtual-environment/overview)、[<Icon name="simple-icons:proxmox" /> Proxmox BS](https://www.proxmox.com/en/products/proxmox-backup-server/overview) 以及几个重要的 LXC 更新到了最新版本。
+
+修改了一下内网布局，后续也许会单独出一篇文章介绍一下。所有容器/虚拟机不再使用固定 IP 地址，而是通过虚拟化的 [<Icon name="simple-icons:openwrt" /> OpenWRT](https://openwrt.org) 来 DHCP。这样就可以仅通过类似 `hostname.bs` 的 DHCP DNS 来互相访问了。一些只能使用 IP 地址的场景（例如在 OpenWRT 中对 `*.i.bsdayo.moe` 的 DNS 请求返回 Caddy 的固定 IP），则在 _DHCP and DNS > Static leases_ 中为其设置固定的 DHCP 地址。
+
+学会了 [<Icon name="simple-icons:ansible" /> Ansible](https://www.redhat.com/en/ansible-collaborative) 的使用方式，并用它来管理 Minecraft 服务器的一些运维工作。自己编写并开源了一些脚本：[<Icon name="simple-icons:github" /> bsdayo/ansible](https://github.com/bsdayo/ansible)。
+
+在内网搭建了 [<Icon name="simple-icons:gitea" /> Gitea](https://about.gitea.com) 和它的配套 [Actions Runner](https://docs.gitea.com/usage/actions/act-runner)。其实我还算信任 GitHub，也没有什么仓库需要本地镜像。搭建它主要是看中 Gitea 的 [Packages](https://docs.gitea.com/usage/packages/overview) 功能支持作为 Debian 仓库提供服务，可以利用它打包一些没有官方 .deb 包的软件。这样在服务容器里就不需要每次手动下载二进制文件，一次性添加仓库后直接 `apt install` 即可。我也为此写了一些打包脚本：[<Icon name="simple-icons:github" /> bsdayo/packaging](https://github.com/bsdayo/packaging)，兼容 GitHub Actions 和 Gitea Actions 的环境。
+
+还搭了一个 [<Icon name="simple-icons:immich" /> Immich](https://immich.app) 作为照片仓库。与其他使用 LXC 部署的服务不同，我选择将 Immich 部署在了虚拟机里。这是是因为 Immich 是微服务架构，包含主服务、机器学习服务、Redis、Postgres 四个部分，逐个部署比较繁琐。尤其是 Postgres 还涉及到 Immich 依赖的第三方扩展需要手动安装，这样还不如用官方推荐的 Docker Compose 方案了，镜像也是官方打包好的。另外虚拟机在处理 NFS 挂载，以及未来可能涉及的硬件直通等操作时也更加灵活。
+
+## What's next
+
+兜兜转转，虽然花了很多时间写的一部分项目最终并没有用上，但经验还是赚到了的。
+
+这次暑假并没有把我用于组 ZFS RAID 的几块硬盘带回来，导致 TrueNAS 和依赖存储的一些服务都停了两个月。回去后打算再分两个 Dataset 出来，分别挂载给 Immich 的照片库和缩略图缓存。
+
+开了一个 123 云盘的会员，获得了 20 TB 的云端存储空间。123 云盘官方支持 WebDAV 挂载，后续打算把自存的一些影视资源通过 [Rclone `crypt`](https://rclone.org/crypt/) 的方式迁移上去，腾出 NAS 中不富余的空间。

@@ -1,0 +1,8 @@
+{
+  "memories-of-yukichan-arcaea-module": "暮雪酱 Arcaea 查分模块从 2022 年 1 月开始开发，最初基于 Node.js 和 koishi 框架，名为 lancelot，提供 B30 查询等功能。2022 年 5 月转向.NET / C#，重写为暮雪酱，增加了猜曲绘、潜力值曲线等新功能。2023 年 1 月发布 v3 版本，支持独立部署。2023 年 4 月，由于 Arcaea 官方关闭 API，查分功能被迫停止服务。项目已开源，开发者感谢用户和支持者。",
+  "pku-geekgame-2023-writeup": "本文记录了作者首次参加 PKU GeekGame CTF 比赛的解题过程与心得。作者在比赛中解决了多个题目，包括 “一眼盯帧”（通过提取 GIF 帧并应用凯撒密码解密）、“小北问答”（搜索查询答案）、“猫咪状态监视器”（利用路径遍历漏洞读取文件）、“基本功”（使用 Zip 明文攻击工具破解加密压缩包）、“麦恩・库拉夫特”（游戏内探索）、“简单的打字稿”（利用 TypeScript 类型系统提取 Flag）和 “非法所得”（通过配置文件注入获取 Flag）。此外，作者还尝试了其他题目但未成功，并总结了参赛经验，认为 CTF 既具挑战性又富有趣味性，期待未来再次参与。",
+  "enable-moonlight-native-touch": "Moonlight Android 端已内置原生触控支持，但代码中被注释。只需取消 Game.java 文件中指定行的注释，重新编译后在设置中关闭 “触控屏作为触摸板” 即可启用。修改后触控体验流畅，支持多点触控，解决了默认鼠标指针操作的不便。屏幕键盘可使用 Windows 自带功能。",
+  "build-custom-debian-based-pve-lxc-templates": "本文介绍了如何制作基于 Debian 13 的自定义 Proxmox VE LXC 容器模板。首先安装 Debian Appliance Builder 工具，创建配置文件指定版本、架构和软件源。通过初始化、引导和最终打包步骤生成模板文件，可预装所需软件如 node_exporter。最后将模板文件放入指定目录即可在 Proxmox VE 中使用。",
+  "the-last-summer-vacation": "作者回顾了大学最后一个暑假的技术探索：先是尝试用 NuxtJS + PocketBase 搭建博客，但发现功能过于复杂，最终回归简单的 VitePress 方案；同时完善了家庭实验室，更新了 Proxmox 系统，改用 OpenWRT 管理内网，学习使用 Ansible 管理服务器，并搭建了 Gitea 和 Immich 等服务。作者计划开学后继续优化存储方案，将部分数据迁移到云端。",
+  "ntfy-intro": "ntfy.sh 是一个简单易用的通知服务，通过 HTTP 请求实现消息发布和订阅。它采用频道模型，支持发送带标题的消息，用户可通过 curl 命令或手机 App 接收通知。服务公开但可通过自建或设置权限保护隐私。适用于脚本自动化和集成到如 Proxmox VE 等系统中发送警报。"
+}

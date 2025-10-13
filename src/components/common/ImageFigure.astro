@@ -1,0 +1,14 @@
+---
+import { Image, type LocalImageProps, type RemoteImageProps } from 'astro:assets'
+
+type Props = LocalImageProps | RemoteImageProps
+
+const alt = Astro.slots.has('default') ? await Astro.slots.render('default') : ''
+---
+
+<figure>
+  <Image {...Astro.props} {alt} />
+  <figcaption>
+    <slot />
+  </figcaption>
+</figure>

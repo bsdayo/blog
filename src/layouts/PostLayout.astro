@@ -1,0 +1,85 @@
+---
+import 'medium-zoom/dist/style.css'
+
+interface Props {
+  post: CollectionEntry<'posts'>
+}
+
+import MainLayout from './MainLayout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import type { CollectionEntry } from 'astro:content'
+import { render } from 'astro:content'
+import { Calendar, Shapes, Tag } from 'lucide-react'
+import dayjs from 'dayjs'
+import summaries from '@/../posts/summaries.json'
+import Block from '@/components/common/Block.astro'
+import { getCategoryName } from '@/utils/names'
+
+const post = Astro.props.post
+const { title, created, category, tags } = post.data
+const summary = (summaries as Record<string, string | undefined>)[post.id]
+
+const { Content } = await render(post)
+---
+
+<script>
+  import mediumZoom from 'medium-zoom/dist/pure'
+
+  document.addEventListener('astro:page-load', () => {
+    mediumZoom('.typography img', {
+      background: 'rgba(0, 0, 0, 0.8)',
+    })
+  })
+</script>
+
+<style is:global>
+  .medium-zoom-overlay,
+  .medium-zoom-image--opened {
+    z-index: 999;
+  }
+</style>
+
+<MainLayout {title}>
+  <Header />
+
+  <article class="my-16 mx-auto px-6 sm:px-0 typography">
+    <h1 class="mb-6">{title}</h1>
+
+    <p
+      class="space-x-3 text-sm text-muted-foreground [&>span]:inline-flex [&>span]:items-center [&>span]:space-x-1 [&>span>svg]:size-4"
+    >
+      <span>
+        <Calendar />
+        <span>{dayjs(created).format('YYYY-MM-DD')}</span>
+      </span>
+      <span>
+        <Shapes />
+        <a href={`/categories/${category}`}>{getCategoryName(category)}</a>
+      </span>
+      {
+        tags.map((tag) => (
+          <span>
+            <Tag />
+            <a href={`/tags/${tag}`}>{tag}</a>
+          </span>
+        ))
+      }
+    </p>
+
+    {
+      summary && (
+        <Block variant="summary">
+          <div slot="title">AI 生成的摘要</div>
+          {summary}
+        </Block>
+      )
+    }
+
+    <Content />
+
+    <hr />
+
+    <Footer />
+  </article>
+</MainLayout>

@@ -1,0 +1,46 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro'
+import { getPosts, getTags, getCategories } from '@/utils/post'
+import { Shapes, Tags } from 'lucide-react'
+import PostList from '@/components/common/PostList.astro'
+
+const posts = await getPosts()
+const tags = getTags(posts)
+const categories = getCategories(posts)
+---
+
+<ContentLayout>
+  <h1>文章</h1>
+
+  <p class="space-x-3">
+    <Tags size="1.2em" className="inline-block" />
+    {
+      tags.map(([tag, count]) => (
+        <span class="inline-block">
+          <a href={`/tags/${tag}`}>
+            {tag}
+            <span class="text-xs">{count}</span>
+          </a>
+        </span>
+      ))
+    }
+  </p>
+
+  <p class="space-x-3">
+    <Shapes size="1.2em" className="inline-block" />
+    {
+      categories.map(([category, count]) => (
+        <span class="inline-block">
+          <a href={`/categories/${category}`}>
+            {category}
+            <span class="text-xs">{count}</span>
+          </a>
+        </span>
+      ))
+    }
+  </p>
+
+  <hr />
+
+  <PostList {posts} />
+</ContentLayout>

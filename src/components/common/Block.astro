@@ -1,0 +1,36 @@
+---
+import { Alert, AlertDescription, AlertTitle, type AlertProps } from '@/components/ui/alert'
+import { Info, Ban, CircleQuestionMark, Sparkles } from 'lucide-react'
+
+const variantIcons = {
+  default: Info,
+  destructive: Ban,
+  question: CircleQuestionMark,
+  summary: Sparkles,
+}
+
+interface Props {
+  variant?: keyof typeof variantIcons
+}
+
+const variant = Astro.props.variant ?? 'default'
+const Icon = variantIcons[variant]
+
+const hasDescription = Astro.slots.has('default')
+---
+
+<Alert {variant} className='my-[1.25em]'>
+  <Icon />
+  <AlertTitle>
+    <slot name="title" />
+  </AlertTitle>
+  {
+    hasDescription && (
+      <AlertDescription>
+        <div class="prose-sm ">
+          <slot />
+        </div>
+      </AlertDescription>
+    )
+  }
+</Alert>

@@ -1,0 +1,18 @@
+---
+import MainLayout from './MainLayout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+
+interface Props {
+  title?: string
+}
+---
+
+<MainLayout title={Astro.props.title}>
+  <Header />
+  <article class="my-16 mx-auto px-6 sm:px-0 typography">
+    <slot />
+    <hr />
+    <Footer />
+  </article>
+</MainLayout>

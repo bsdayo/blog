@@ -1,0 +1,25 @@
+---
+import { fade } from 'astro:transitions'
+import BlogAvatar from './common/BlogAvatar.astro'
+import { HeaderActions } from './HeaderActions'
+---
+
+{
+  /*
+  The transition name must be set to avoid flashing!
+  https://www.nicchan.me/blog/view-transitions-and-stacking-context/
+*/
+}
+<header
+  class="sticky top-0 z-100 h-16 px-4 bg-background border-b-1 select-none"
+  transition:name="header"
+  transition:animate="initial"
+>
+  <div class="h-full max-w-4xl mx-auto flex items-center justify-between">
+    <a class="block" href="/">
+      <BlogAvatar size={40} />
+    </a>
+
+    <HeaderActions client:load />
+  </div>
+</header>

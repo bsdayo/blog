@@ -1,0 +1,30 @@
+---
+import PostList from '@/components/common/PostList.astro'
+import ContentLayout from '@/layouts/ContentLayout.astro'
+import { getPosts } from '@/utils/post'
+import type { GetStaticPaths } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  posts: CollectionEntry<'posts'>[]
+}
+
+const tag = Astro.params.tag
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPosts()
+  const tags = new Set(posts.flatMap((post) => post.data.tags))
+  return Array.from(tags).map((tag) => {
+    const tagged = posts.filter((post) => post.data.tags.includes(tag))
+    return {
+      params: { tag },
+      props: { posts: tagged },
+    }
+  })
+}
+---
+
+<ContentLayout title={`标签 - ${tag}`}>
+  <h1>标签 - {tag}</h1>
+  <PostList posts={Astro.props.posts} />
+</ContentLayout>

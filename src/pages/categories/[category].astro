@@ -1,0 +1,31 @@
+---
+import PostList from '@/components/common/PostList.astro'
+import ContentLayout from '@/layouts/ContentLayout.astro'
+import { getCategoryName } from '@/utils/names'
+import { getPosts } from '@/utils/post'
+import type { GetStaticPaths } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  posts: CollectionEntry<'posts'>[]
+}
+
+const category = Astro.params.category
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPosts()
+  const categories = new Set(posts.map((post) => post.data.category))
+  return Array.from(categories).map((category) => {
+    const categorized = posts.filter((post) => post.data.category === category)
+    return {
+      params: { category },
+      props: { posts: categorized },
+    }
+  })
+}
+---
+
+<ContentLayout title={`分类 - ${getCategoryName(category?.toString() ?? '')}`}>
+  <h1>分类 - {category}</h1>
+  <PostList posts={Astro.props.posts} />
+</ContentLayout>

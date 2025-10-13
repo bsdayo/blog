@@ -1,0 +1,10 @@
+---
+import { Code } from 'astro:components'
+import siteConfig from '@/site.config'
+
+type Props = Omit<Parameters<typeof Code>[0], 'themes'>
+
+const themes = siteConfig.shikiThemes
+---
+
+<Code {...Astro.props} themes={themes} />
