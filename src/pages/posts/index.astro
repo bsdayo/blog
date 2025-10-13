@@ -3,6 +3,7 @@ import ContentLayout from '@/layouts/ContentLayout.astro'
 import { getPosts, getTags, getCategories } from '@/utils/post'
 import { Shapes, Tags } from 'lucide-react'
 import PostList from '@/components/common/PostList.astro'
+import { getCategoryName } from '@/utils/names'
 
 const posts = await getPosts()
 const tags = getTags(posts)
@@ -32,7 +33,7 @@ const categories = getCategories(posts)
       categories.map(([category, count]) => (
         <span class="inline-block">
           <a href={`/categories/${category}`}>
-            {category}
+            {getCategoryName(category)}
             <span class="text-xs">{count}</span>
           </a>
         </span>
