@@ -11,7 +11,7 @@ export function HeaderAvatarActivity({ className }: { className?: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <HoverCard openDelay={0} open={open} onOpenChange={(o) => setOpen(o)}>
+    <HoverCard openDelay={0} open={open} onOpenChange={setOpen}>
       <HoverCardTrigger asChild>
         <img
           className={cn('activity-icon hidden', className)}

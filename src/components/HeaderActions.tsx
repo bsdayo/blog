@@ -45,7 +45,7 @@ const headerLinks: HeaderLink[] = [
 export function HeaderActions() {
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild className="sm:hidden">
           <Button size="icon-lg" variant="ghost">
             <Menu />
