@@ -53,11 +53,9 @@ export function HeaderActions() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="z-200" collisionPadding={16}>
           {headerLinks.map((link) => (
-            <DropdownMenuItem key={link.href} asChild>
-              <a href={link.href} target={link.target}>
-                {link.name}
-              </a>
-            </DropdownMenuItem>
+            <a key={link.href} href={link.href} target={link.target}>
+              <DropdownMenuItem>{link.name}</DropdownMenuItem>
+            </a>
           ))}
 
           <DropdownMenuSeparator />
