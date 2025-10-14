@@ -1,13 +1,13 @@
 ---
 import '@/styles/global.css'
 import { ClientRouter } from 'astro:transitions'
+import siteConfig from '@/site.config'
 
 interface Props {
   title?: string
 }
 
-const baseTitle = "bsdayo's blog w/ Astro"
-const title = Astro.props.title ? `${Astro.props.title} | ${baseTitle}` : baseTitle
+const title = Astro.props.title ? `${Astro.props.title} | ${siteConfig.title}` : siteConfig.title
 ---
 
 <script is:inline>

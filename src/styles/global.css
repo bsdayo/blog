@@ -142,7 +142,6 @@
   @apply prose-a:decoration-current/30 prose-a:underline-offset-4 prose-a:transition-colors prose-a:hover:decoration-current;
   @apply prose-blockquote:prose-p:before:hidden;
 
-  h1,
   h2,
   h3,
   h4,

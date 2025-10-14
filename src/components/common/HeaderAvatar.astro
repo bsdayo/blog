@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets'
+import { HeaderAvatarActivity } from './HeaderAvatarActivity'
+---
+
+<script>
+  import { onSocketMessage } from '@/utils/socket'
+  import { $activityIconUrl, $activityMessage } from '@/utils/stores'
+
+  let timeout: NodeJS.Timeout | null = null
+
+  onSocketMessage((message) => {
+    if (message.type !== 'activity') return
+
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      document.querySelector('.activity-icon')?.classList.add('hidden')
+    }, 30000)
+
+    $activityIconUrl.set(message.icon)
+    $activityMessage.set(message.message)
+    document.querySelector('.activity-icon')?.classList.remove('hidden')
+  })
+</script>
+
+<div class="relative">
+  <a href="/">
+    <Image
+      class="rounded-full"
+      src="https://avatars.githubusercontent.com/bsdayo"
+      alt="@bsdayo"
+      width={40}
+      height={40}
+      loading="eager"
+    />
+  </a>
+  <HeaderAvatarActivity client:only="react" className="absolute -bottom-1 -right-1 size-5" />
+</div>

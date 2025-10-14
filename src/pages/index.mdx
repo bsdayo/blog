@@ -2,9 +2,16 @@
 layout: '@/layouts/ContentLayout.astro'
 ---
 
-import BlogAvatar from '@/components/common/BlogAvatar.astro'
+import { Image } from 'astro:assets'
 
-<BlogAvatar size={256} />
+<Image
+  class="rounded-full"
+  src="https://avatars.githubusercontent.com/bsdayo"
+  alt="@bsdayo"
+  width={200}
+  height={200}
+  loading="eager"
+/>
 
 # bsdayo
 
