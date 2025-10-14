@@ -12,7 +12,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuShortcut,
   DropdownMenuSeparator,
 } from './ui/dropdown-menu'
 import type { HTMLAttributeAnchorTarget, ReactNode } from 'react'
@@ -48,7 +47,7 @@ export function HeaderActions() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="sm:hidden">
-          <Button size="icon" variant="ghost">
+          <Button size="icon-lg" variant="ghost">
             <Menu />
           </Button>
         </DropdownMenuTrigger>

@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { HoverCard, HoverCardTrigger, HoverCardContent } from '../ui/hover-card'
+import { HoverCard, HoverCardTrigger, HoverCardContent } from './ui/hover-card'
 import { $activityIconUrl, $activityMessage } from '@/utils/stores'
 import { useStore } from '@nanostores/react'
 import { useState } from 'react'
