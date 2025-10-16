@@ -50,6 +50,7 @@ export function HeaderActions() {
           asChild
           className="sm:hidden"
           onFocusCapture={(event) => {
+            // https://github.com/radix-ui/primitives/issues/2565
             event.stopPropagation()
           }}
         >
