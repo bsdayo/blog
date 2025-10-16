@@ -1,20 +1,22 @@
 ---
+import { type CollectionEntry, render } from 'astro:content'
+import dayjs from 'dayjs'
+import { Calendar, Shapes, Tag } from 'lucide-react'
+import Giscus from '@giscus/react'
 import 'medium-zoom/dist/style.css'
-
-interface Props {
-  post: CollectionEntry<'posts'>
-}
 
 import MainLayout from './MainLayout.astro'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
-import type { CollectionEntry } from 'astro:content'
-import { render } from 'astro:content'
-import { Calendar, Shapes, Tag } from 'lucide-react'
-import dayjs from 'dayjs'
-import summaries from '@/../posts/summaries.json'
 import Block from '@/components/common/Block.astro'
+
 import { getCategoryName } from '@/utils/names'
+import siteConfig from '@/site.config'
+import summaries from '@/../posts/summaries.json'
+
+interface Props {
+  post: CollectionEntry<'posts'>
+}
 
 const post = Astro.props.post
 const { title, created, category, tags } = post.data
@@ -77,6 +79,10 @@ const { Content } = await render(post)
     }
 
     <Content />
+
+    <hr />
+
+    <Giscus client:only="react" {...siteConfig.giscus} />
 
     <hr />
 

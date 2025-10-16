@@ -11,6 +11,9 @@ const title = Astro.props.title ? `${Astro.props.title} | ${siteConfig.title}` :
 ---
 
 <script is:inline>
+  /**
+   * @returns {'light' | 'dark'}
+   */
   function getTheme() {
     if (typeof localStorage !== 'undefined') {
       let theme = localStorage.getItem('theme')
@@ -18,11 +21,19 @@ const title = Astro.props.title ? `${Astro.props.title} | ${siteConfig.title}` :
     }
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
+  /**
+   * @param {'light' | 'dark'} theme
+   * @param {Document} target
+   */
   function setTheme(theme, target) {
     const doc = target ?? document
     doc.documentElement.classList[theme === 'dark' ? 'add' : 'remove']('dark')
     if (!target && typeof localStorage !== 'undefined') {
       localStorage.setItem('theme', theme)
+    }
+    const giscus = doc.getElementsByTagName('giscus-widget')[0]
+    if (giscus) {
+      giscus.setAttribute('theme', theme)
     }
   }
 
