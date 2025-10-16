@@ -46,7 +46,13 @@ export function HeaderActions() {
   return (
     <>
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild className="sm:hidden">
+        <DropdownMenuTrigger
+          asChild
+          className="sm:hidden"
+          onFocusCapture={(event) => {
+            event.stopPropagation()
+          }}
+        >
           <Button size="icon-lg" variant="ghost">
             <Menu />
           </Button>
