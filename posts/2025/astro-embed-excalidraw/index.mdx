@@ -1,0 +1,262 @@
+---
+slug: astro-embed-excalidraw
+title: Astro 嵌入 Excalidraw 组件
+tags: [astro, react]
+category: programming
+created: 2025-10-17 12:13:29 +08:00
+---
+
+import { Icon } from 'astro-icon/components'
+import ExcalidrawFigure from '@/components/common/ExcalidrawFigure.astro'
+import example from './example.excalidraw.json'
+
+很早就接触到 [<Icon name="simple-icons:excalidraw" /> Excalidraw](https://excalidraw.com/) 这个白板工具，
+可以绘制出精美的手绘风格图表。在它的网页端编辑器可以将画布导出为 PNG 或 SVG 图像，以便展示在网页上。
+
+但直接使用导出的图像有一个问题：没法跟随页面主题的切换而改变颜色（除非对 SVG 进行复杂的颜色转换）。
+而在全局深色模式下突然滑出白底图片会很刺眼，极其影响浏览体验。
+
+好在官方有提供[组件版本](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/installation)，可以直接在页面中嵌入 Excalidraw 画布，支持拖拽、缩放、主题切换等操作。
+曾经在 Blog 技术栈还是 Vue 的时候尝试过，但没能成功，具体原因已经记不清了。前不久迁移到 Astro + React 后，又想起来这件事，打算再尝试一下。踩了一些坑，最终还是嵌入成功。
+
+<ExcalidrawFigure initialData={example}>效果展示（尝试切换页面主题！）</ExcalidrawFigure>
+
+## Demo
+
+包含下文内容，作为参考。
+
+[StackBlitz](https://stackblitz.com/edit/bsdayo-astro-embed-excalidraw?file=src%2Fpages%2Findex.astro)
+
+## 添加组件
+
+由于 Excalidraw 提供的组件仅有 React 版本，需要先为 Astro 添加 React 支持。可以前往[官方文档](https://docs.astro.build/en/guides/integrations-guide/react/)查看详细信息。
+
+添加好 React 支持后，安装 [`@excalidraw/excalidraw`](https://www.npmjs.com/package/@excalidraw/excalidraw) 包：
+
+```bash
+pnpm add @excalidraw/excalidraw
+```
+
+也许是实现差异，在 `.astro` 组件中可以直接引入 Excalidraw，而在 `.mdx` 中则会报错：
+
+> Cannot find module '/repo/node_modules/roughjs/bin/rough' imported from /repo/node_modules/@excalidraw/excalidraw/dist/prod/index.js  
+> Did you mean to import "roughjs/bin/rough.js"?
+
+最好的解决办法是用 `.astro` 包一层。创建一个 `ExcalidrawWrapper.astro`：
+
+```astro
+---
+import { Excalidraw } from '@excalidraw/excalidraw'
+import type { ComponentProps } from 'react'
+
+// 引入 Excalidraw 的样式，否则会报错。
+import '@excalidraw/excalidraw/index.css'
+
+type Props = ComponentProps<typeof Excalidraw>
+
+const props = Astro.props
+---
+
+<div class="excalidraw-wrapper">
+  <!-- 添加 client:only="react"，否则会报错。 -->
+  <Excalidraw client:only="react" {...props} />
+</div>
+
+<style>
+  /* Excalidraw 组件会填充整个父组件的空间 */
+  .excalidraw-wrapper {
+    width: 400px;
+    height: 400px;
+  }
+</style>
+```
+
+注意点：
+
+- 由于 Excalidraw 组件无法 SSR，需要在 `<Excalidraw />` 上加入 `client:only="react"`  
+  **否则报错**：_Cannot find module ... Did you mean to import "roughjs/bin/rough.js"?_
+- 在 TS 部分 `import '@excalidraw/excalidraw/index.css'`  
+  **否则报错**：_CanvasRenderingContext2D.setTransform: Canvas exceeds max size._
+
+然后就可以在其他地方引入 `ExcalidrawWrapper.astro` 组件了，例如：
+
+```astro
+---
+import ExcalidrawWrapper from '../components/ExcalidrawWrapper.astro'
+---
+
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro embed Excalidraw</title>
+  </head>
+  <body>
+    <ExcalidrawWrapper />
+  </body>
+</html>
+```
+
+## 导入画布
+
+Excalidraw 网页端可以选择将画布保存为 `.excalidraw` 文件（菜单 - Save to... Save to disk）。这个 `.excalidraw` 文件的内容实际上就是一个 JSON 对象。
+
+我们可以读取这个 `.excalidraw` 文件并传入 Excalidraw 组件的 `initialData` prop，即可读取自定义的画布。
+但 Astro（基于 Vite）无法 import `.excalidraw` 格式的文件，我们可以将其扩展名改为 `.json`（或 `.excalidraw.json`）再 import：
+
+```astro
+---
+import ExcalidrawWrapper from '../components/ExcalidrawWrapper.astro'
+import test from './_test.excalidraw.json'
+---
+
+<ExcalidrawWrapper initialData={test} />
+```
+
+如果你使用 VS Code，推荐[这个扩展](https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor)，可以直接在编辑器内绘制 `.excalidraw.json` 文件。
+
+## 定制化
+
+### 只读模式
+
+Excalidraw 组件默认带编辑功能，但由于目标是在文章中嵌入，编辑功能就显得多余了。可以设置 `viewModeEnabled` prop 来禁用编辑功能：
+
+```astro
+<ExcalidrawWrapper viewModeEnabled initialData={test} />
+```
+
+### 隐藏菜单栏和右键菜单
+
+可以添加自定义样式：
+
+```astro
+<style is:global>
+  .excalidraw .App-toolbar-content,
+  .excalidraw .context-menu {
+    display: none;
+  }
+</style>
+```
+
+### 自动移动并缩放至内容
+
+Excalidraw 画布中的元素是根据绝对坐标来定位的，导入的画布很有可能默认没有显示在组件之中（移动或者缩放才能看到）。
+
+首先需要将 `ExcalidrawWrapper.astro` 中的部分内容拆分到一个单独的 React 组件，例如 `ExcalidrawRaw.tsx`，然后提供 `excalidrawAPI` 函数轮询是否初始化完成，最后调用 `scrollToContent` 方法。代码如下：
+
+`ExcalidrawRaw.tsx`：
+
+```ts
+import { Excalidraw as Draw } from '@excalidraw/excalidraw'
+import type { ComponentProps } from 'react'
+import type { ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types'
+
+export type ExcalidrawProps = ComponentProps<typeof Draw>
+
+export function ExcalidrawRaw(props: ExcalidrawProps) {
+  const excalidrawAPI = (api: ExcalidrawImperativeAPI) => {
+    const interval = setInterval(() => {
+      if (api.getSceneElements().length > 0) {
+        api.scrollToContent(undefined, {
+          fitToContent: true,
+        })
+        clearInterval(interval)
+      }
+    }, 10)
+  }
+
+  return <Draw viewModeEnabled excalidrawAPI={excalidrawAPI} {...props} />
+}
+```
+
+`ExcalidrawWrapper.astro`：
+
+```astro
+---
+import { ExcalidrawRaw, type ExcalidrawProps } from './ExcalidrawRaw'
+import '@excalidraw/excalidraw/index.css'
+
+type Props = ExcalidrawProps
+const props = Astro.props
+---
+
+<div class="excalidraw-wrapper">
+  <ExcalidrawRaw client:only="react" {...props} />
+</div>
+
+<style>
+  .excalidraw-wrapper {
+    width: 400px;
+    height: 400px;
+  }
+</style>
+```
+
+### 跟随主题变化
+
+作为示例，我使用 Astro 官方推荐的 [nanostores](https://docs.astro.build/en/recipes/sharing-state-islands/) 来管理主题状态：
+
+```bash
+pnpm add nanostores @nanostores/react
+```
+
+新建 `stores.ts`：
+
+```ts
+import { atom } from 'nanostores'
+
+export const $currentTheme = atom<'light' | 'dark'>('light')
+```
+
+修改 `ExcalidrawRaw.tsx`：
+
+```tsx
+import { Excalidraw as Draw } from '@excalidraw/excalidraw'
+import type { ComponentProps } from 'react'
+import { useStore } from '@nanostores/react'
+import { $currentTheme } from '../stores'
+
+export type ExcalidrawProps = ComponentProps<typeof Draw>
+
+export function ExcalidrawRaw(props: ExcalidrawProps) {
+  const currentTheme = useStore($currentTheme)
+  return <Draw theme={currentTheme} {...props} />
+}
+```
+
+实现主题切换：
+
+```astro
+---
+import ExcalidrawWrapper from '../components/ExcalidrawWrapper.astro'
+import test from './_test.excalidraw.json'
+---
+
+<script>
+  import { $currentTheme } from '../stores'
+
+  document.getElementById('theme-btn').onclick = () => {
+    const toDark = $currentTheme.get() === 'light' 
+    $currentTheme.set(toDark ? 'dark' : 'light')
+    document.documentElement.classList[toDark ? 'add' : 'remove']('dark')
+  }
+</script>
+
+<html lang="en">
+  <head>
+    <title>Astro embed Excalidraw</title>
+  </head>
+  <body>
+    <button id="theme-btn">Toggle theme</button>
+    <ExcalidrawWrapper initialData={test} />
+  </body>
+</html>
+
+<style is:global>
+  html.dark {
+    background-color: #000;
+  }
+</style>
+```

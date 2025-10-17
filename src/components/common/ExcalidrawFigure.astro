@@ -11,8 +11,20 @@ type Props = ExcalidrawProps & {
 ---
 
 <figure>
-  <div class={cn('w-full h-94 rounded-lg border-border border overflow-hidden', Astro.props.class)}>
+  <div
+    class={cn(
+      'w-full aspect-[16/9] rounded-lg border-border border overflow-hidden',
+      Astro.props.class,
+    )}
+  >
     <ExcalidrawRaw {...Astro.props} client:only="react" />
   </div>
   <figcaption><slot /></figcaption>
 </figure>
+
+<style is:global>
+  .excalidraw .App-toolbar-content,
+  .excalidraw .context-menu {
+    display: none;
+  }
+</style>
