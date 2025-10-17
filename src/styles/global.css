@@ -175,4 +175,11 @@
   pre.astro-code {
     @apply -mx-6 rounded-none sm:mx-0 sm:rounded-[0.375rem];
   }
+
+  .excalidraw {
+    .context-menu,
+    .App-toolbar-content {
+      @apply hidden!;
+    }
+  }
 }

@@ -1,11 +1,16 @@
+import { $currentTheme } from './stores'
+
 declare global {
-  function setTheme(theme: 'light' | 'dark', target?: Document): void
+  function _getTheme(): 'light' | 'dark'
+  function _setTheme(theme: 'light' | 'dark', target?: Document): void
 }
 
 export function toggleTheme() {
   function toggle() {
     const isDark = document.documentElement.classList.contains('dark')
-    globalThis.setTheme(isDark ? 'light' : 'dark')
+    const theme = isDark ? 'light' : 'dark'
+    globalThis._setTheme(theme)
+    $currentTheme.set(theme)
   }
 
   if (document.startViewTransition) {

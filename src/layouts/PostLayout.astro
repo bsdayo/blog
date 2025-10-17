@@ -2,12 +2,12 @@
 import { type CollectionEntry, render } from 'astro:content'
 import dayjs from 'dayjs'
 import { Calendar, Shapes, Tag } from 'lucide-react'
-import Giscus from '@giscus/react'
 import 'medium-zoom/dist/style.css'
 
 import MainLayout from './MainLayout.astro'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
+import { Giscus } from '@/components/Giscus'
 import Block from '@/components/common/Block.astro'
 
 import { getCategoryName } from '@/utils/names'
@@ -82,7 +82,7 @@ const { Content } = await render(post)
 
     <hr />
 
-    <Giscus client:only="react" {...siteConfig.giscus} />
+    <Giscus client:only="react" />
 
     <hr />
 

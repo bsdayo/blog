@@ -14,7 +14,7 @@ const title = Astro.props.title ? `${Astro.props.title} | ${siteConfig.title}` :
   /**
    * @returns {'light' | 'dark'}
    */
-  function getTheme() {
+  function _getTheme() {
     if (typeof localStorage !== 'undefined') {
       let theme = localStorage.getItem('theme')
       if (theme) return theme
@@ -25,21 +25,26 @@ const title = Astro.props.title ? `${Astro.props.title} | ${siteConfig.title}` :
    * @param {'light' | 'dark'} theme
    * @param {Document} target
    */
-  function setTheme(theme, target) {
+  function _setTheme(theme, target) {
     const doc = target ?? document
     doc.documentElement.classList[theme === 'dark' ? 'add' : 'remove']('dark')
     if (!target && typeof localStorage !== 'undefined') {
       localStorage.setItem('theme', theme)
     }
-    const giscus = doc.getElementsByTagName('giscus-widget')[0]
-    if (giscus) {
-      giscus.setAttribute('theme', theme)
-    }
   }
 
-  setTheme(getTheme())
+  _setTheme(_getTheme())
+</script>
+
+<script>
+  import { $currentTheme } from '@/utils/stores'
+
+  $currentTheme.set(globalThis._getTheme())
+
   document.addEventListener('astro:before-swap', (event) => {
-    setTheme(getTheme(), event.newDocument)
+    const theme = globalThis._getTheme()
+    $currentTheme.set(theme)
+    globalThis._setTheme(theme, event.newDocument)
   })
 </script>
 
