@@ -4,5 +4,6 @@
   "enable-moonlight-native-touch": "Moonlight Android 端已内置原生触控支持，但代码中被注释。只需取消 Game.java 文件中指定行的注释，重新编译后在设置中关闭 “触控屏作为触摸板” 即可启用。修改后触控体验流畅，支持多点触控，解决了默认鼠标指针操作的不便。屏幕键盘可使用 Windows 自带功能。",
   "build-custom-debian-based-pve-lxc-templates": "本文介绍了如何制作基于 Debian 13 的自定义 Proxmox VE LXC 容器模板。首先安装 Debian Appliance Builder 工具，创建配置文件指定版本、架构和软件源。通过初始化、引导和最终打包步骤生成模板文件，可预装所需软件如 node_exporter。最后将模板文件放入指定目录即可在 Proxmox VE 中使用。",
   "the-last-summer-vacation": "作者回顾了大学最后一个暑假的技术探索：先是尝试用 NuxtJS + PocketBase 搭建博客，但发现功能过于复杂，最终回归简单的 VitePress 方案；同时完善了家庭实验室，更新了 Proxmox 系统，改用 OpenWRT 管理内网，学习使用 Ansible 管理服务器，并搭建了 Gitea 和 Immich 等服务。作者计划开学后继续优化存储方案，将部分数据迁移到云端。",
-  "ntfy-intro": "ntfy.sh 是一个简单易用的通知服务，通过 HTTP 请求实现消息发布和订阅。它采用频道模型，支持发送带标题的消息，用户可通过 curl 命令或手机 App 接收通知。服务公开但可通过自建或设置权限保护隐私。适用于脚本自动化和集成到如 Proxmox VE 等系统中发送警报。"
+  "ntfy-intro": "ntfy.sh 是一个简单易用的通知服务，通过 HTTP 请求实现消息发布和订阅。它采用频道模型，支持发送带标题的消息，用户可通过 curl 命令或手机 App 接收通知。服务公开但可通过自建或设置权限保护隐私。适用于脚本自动化和集成到如 Proxmox VE 等系统中发送警报。",
+  "astro-embed-excalidraw": "这篇文章介绍了如何在 Astro 项目中嵌入 Excalidraw 白板组件。作者通过创建 React 包装组件解决了在 Astro 中直接使用 Excalidraw 的问题，包括处理 SSR 兼容性、导入画布数据和样式配置。文章还详细说明了如何实现只读模式、隐藏工具栏、自动缩放至内容以及主题跟随功能，并提供了完整的代码示例和在线演示链接。"
 }
