@@ -1,0 +1,18 @@
+---
+import { cn } from '@/lib/utils'
+import { ExcalidrawRaw, type ExcalidrawProps } from './ExcalidrawRaw'
+import '@excalidraw/excalidraw/index.css'
+
+type Props = ExcalidrawProps & {
+  class?: string
+}
+
+//
+---
+
+<figure>
+  <div class={cn('w-full h-94 rounded-lg border-border border overflow-hidden', Astro.props.class)}>
+    <ExcalidrawRaw {...Astro.props} client:only="react" />
+  </div>
+  <figcaption><slot /></figcaption>
+</figure>

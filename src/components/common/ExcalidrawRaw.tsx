@@ -2,7 +2,7 @@ import { Excalidraw as Draw, Footer, MainMenu } from '@excalidraw/excalidraw'
 import { useStore } from '@nanostores/react'
 import { $currentTheme } from '@/utils/stores'
 import type { ComponentProps } from 'react'
-import type { ExcalidrawImperativeAPI, NormalizedZoomValue } from '@excalidraw/excalidraw/types'
+import type { ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types'
 
 export type ExcalidrawProps = ComponentProps<typeof Draw>
 
