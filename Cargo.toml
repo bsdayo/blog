@@ -1,3 +1,11 @@
 [workspace]
 resolver = "3"
 members = ["common", "backend", "reporter"]
+
+[workspace.dependencies]
+blog-common = { path = "common" }
+tokio = { version = "1.48.0", features = ["full"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.20", features = ["env-filter", "json"] }
+serde = { version = "1.0.228", features = ["derive"] }
+anyhow = "1.0.100"
