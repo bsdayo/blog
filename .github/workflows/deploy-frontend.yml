@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy frontend to GitHub Pages
 
 on:
   push:
@@ -17,7 +17,9 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v5
       - name: Build Astro
-        uses: withastro/action@v4
+        uses: withastro/action@v5
+        with:
+          path: frontend
 
   deploy:
     needs: build
