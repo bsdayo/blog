@@ -6,7 +6,7 @@ settings:
 
 importers:
 
-  frontend:
+  .:
     dependencies:
       '@astrojs/mdx':
         specifier: ^4.3.7
