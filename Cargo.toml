@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["common", "backend", "reporter"]
+members = ["common", "backend", "manager", "reporter"]
 
 [workspace.dependencies]
 blog-common = { path = "common" }
